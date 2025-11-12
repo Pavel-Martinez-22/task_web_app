@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/main.js" type="module"></script>
+    <!-- Font Awesome  Icons from cdnjs libraries, had to search font-awesome and then copy the link tag-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Task App</title>
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <div class="wrapContainer">
+        <div id="statsContainer">
+          <section class="details">
+            <div class="statNumbers">
+              <p id="numbers">0 / 0</p>
+            </div>
+            <h1 tabindex="0">Task App</h1>
+            <p>Progress is growing!</p>
+            <div id="progressBar">
+              <div id="progress"></div>
+            </div>
+          </section>
+        </div>
+
+        <section id="newEntryContainer">
+          <h2 class="visually-hidden" tabindex="0">Add a task.</h2>
+          <form id="itemEntryForm">
+            <label for="taskInput" class="visually-hidden">Enter a new task.</label>
+            <input
+              id="taskInput"
+              type="text"
+              autocomplete="off"
+              placeholder="Add New Task"
+              tabindex="0"
+            />
+            <button
+              id="addTasksButton"
+              class="button"
+              type="submit"
+              title="Add new task"
+              aria-label="Add new task to list."
+              tabindex="0"
+            >
+              +
+            </button>
+          </form>
+        </section>
+
+        <section class="controlsContainer">
+          <h2 class="visually-hidden" tabindex="0">Task filter options</h2>
+
+          <button
+            id="clearTasksButton"
+            class="button"
+            type="button"
+            title="Clear the list"
+            aria-label="Remove all items from the list"
+            tabindex="0"
+          >
+            Clear All
+          </button>
+
+          <div class="filters">
+            <button
+              id="pending"
+              class="filterButton active"
+              type="button"
+              title="Uncompleted Tasks"
+              aria-label="View all uncompleted tasks."
+              tabindex="0"
+            >
+              Task List
+            </button>
+            <button
+              id="completed"
+              class="filterButton"
+              type="button"
+              title="Completed Tasks"
+              aria-label="View all completed tasks."
+              tabindex="0"
+            >
+              Task Completed
+            </button>
+          </div>
+        </section>
+
+        <section id="taskList">
+          <!-- Will be removed and replaced with JavaScript generated content but for now this example will be used to style the list. -->
+          <!-- <h2 class="visually-hidden" tabindex="0">List of tasks.</h2>
+
+          <div class="task">
+            <div class="actions">
+              <i class="fa-solid fa-bars" aria-label="Drag and drop icon"></i>
+              <label for="checkBox-1" class="visually-hidden">Check Box</label>
+              <input type="checkbox" id="checkBox-1" tabindex="0" />
+            </div>
+
+            <div class="content">
+              <label for="textBox-1" class="visually-hidden">Text Box Description</label>
+              <input type="text" id="textBox-1" class="text" value="Task 1" readonly tabindex="0" />
+            </div>
+
+            <div class="settings">
+              <i class="fa-solid fa-ellipsis" aria-label="Settings Menu"></i>
+              <ul class="task-menu">
+                <li><i class="fa-solid fa-pencil" aria-label="Edit Icon"></i>Edit</li>
+                <li><i class="fa-solid fa-trash-can" aria-label="Delete Icon"></i>Delete</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="task">
+            <div class="actions">
+              <i class="fa-solid fa-bars" aria-label="Drag and drop icon"></i>
+              <label for="taskBox-1" class="visually-hidden">Check Box</label>
+              <input type="checkbox" id="taskBox-1" tabindex="0" />
+            </div>
+
+            <div class="content">
+              <label for="1" class="visually-hidden">Task Description</label>
+              <input type="text" id="1" class="text" value="Task 1" readonly tabindex="0" />
+            </div>
+
+            <div class="settings">
+              <i class="fa-solid fa-ellipsis"></i>
+              <ul class="task-menu">
+                <li><i class="fa-solid fa-pencil"></i>Edit</li>
+                <li><i class="fa-solid fa-trash-can"></i>Delete</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="task">
+            <div class="actions">
+              <i class="fa-solid fa-bars" aria-label="Drag and drop icon"></i>
+              <label for="taskBox-1" class="visually-hidden">Check Box</label>
+              <input type="checkbox" id="taskBox-1" tabindex="0" />
+            </div>
+
+            <div class="content">
+              <label for="task-1" class="visually-hidden">Task Description</label>
+              <input type="text" id="task-1" class="text" value="Task 1" readonly tabindex="0" />
+            </div>
+
+            <div class="settings">
+              <i class="fa-solid fa-ellipsis"></i>
+              <ul class="task-menu">
+                <li><i class="fa-solid fa-pencil"></i>Edit</li>
+                <li><i class="fa-solid fa-trash-can"></i>Delete</li>
+              </ul>
+            </div>
+          </div> -->
+        </section>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>
