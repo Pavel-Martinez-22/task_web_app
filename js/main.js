@@ -365,6 +365,14 @@ const addClickListenerToEditLi = (taskMenuUL, textBoxInput) => {
       textBoxInput.setAttribute("readonly", "readonly");
     }
 
+    if (textBoxInput.readOnly) {
+      const updatedTask = textBoxInput.value;
+      const taskId = textBoxInput.id;
+      const list = taskList.getTaskList();
+      const taskObj = list.find(task => task.getId() == taskId);
+      taskObj.setTaskContent(updatedTask);
+      updatePersistentData(taskList.getTaskList());
+    }
   });
 };
 
