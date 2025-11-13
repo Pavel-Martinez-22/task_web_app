@@ -56,6 +56,7 @@ const refreshThePage = () => {
   renderTaskList();
   clearEntryField();
   setFocusOnEntryField();
+  countCompletedTask();
 };
 
 const clearTaskListDisplay = () => {
@@ -278,22 +279,11 @@ const addClickListenerToCheckbox = (checkBox, textBoxInput) => {
       taskObj.setStatus("completed");
       updatePersistentData(taskList.getTaskList());
       countCompletedTask();
-
-
-      //count ids
-
-      //set status
-      //count all pending
     } else {
       textBoxInput.classList.remove("checked");
       taskObj.setStatus("pending");
       updatePersistentData(taskList.getTaskList());
-
-      const percentCompleted = countCompletedTask();
-
-
-
-      //recount all pending
+      countCompletedTask();
     }
   });
 };
@@ -303,12 +293,9 @@ const countCompletedTask = () => {
   const totalTasks = list.length;
   const completedTasks = list.filter(task => task.getStatus() === "completed").length;
   const progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
-
   const progressBar = document.getElementById("progress");
   progressBar.style.width = `${progress}%`;
-
   document.getElementById("numbers").innerText = `${completedTasks} / ${totalTasks}`;
-
 }
 
 
@@ -409,6 +396,18 @@ const addClickListenerToEditLi = (taskMenuUL, textBoxInput) => {
     // if (taskObj) {
     //   console.log("Task updated:", taskObj);
     // }
+
+    // //Attempt 2:
+    // editLiElement.addEventListener("keydown", (event) => {
+
+    //   if (event.key === "Enter") {
+    //     taskMenuUL.classList.remove("show");
+    //     textBoxInput.readOnly = textBoxInput.readOnly;
+    //   };
+
+    // });
+
+
 
 
   })
