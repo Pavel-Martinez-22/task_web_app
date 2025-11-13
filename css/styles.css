@@ -121,7 +121,7 @@ form {
   background: #d9cfb6;
   border: 2px solid #29313d;
   border-radius: 10px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #29313d;
 }
 
@@ -217,11 +217,14 @@ form {
   background-color: #b9b19d;
   border: 2px solid #29313d;
 }
+.focusEdit {
+  box-shadow: -4px 1px 8px #29313d;
+}
 
 .task.over {
   background-color: #29313d;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* subtle shadow */
-  transform: scale(1.08); /* optional: slight zoom effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1.08);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 /*---------- actions ----------*/
@@ -281,15 +284,17 @@ form {
 }
 
 .content input[type="text"] {
-  width: 100%;
-  padding: 0.5rem 0;
-  margin: 0;
   appearance: none;
   border: none;
   outline: none;
   background: none;
+  width: 100%;
+  margin: 0;
+  font-size: 1rem;
 }
-
+.content input[type="text"]:not(:read-only) {
+  color: red;
+}
 .content input[type="text"].checked {
   text-decoration: line-through;
   opacity: 0.6;

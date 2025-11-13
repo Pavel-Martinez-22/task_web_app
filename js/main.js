@@ -199,7 +199,7 @@ const buildListItem = (task) => {
 
   //Add Event Listeners
   addClickListenerToDeleteLi(taskMenuUL, textBoxInput);
-  addClickListenerToEditLi(taskMenuUL, textBoxInput);
+  addClickListenerToEditLi(taskMenuUL, textBoxInput, taskDiv);
 
   //Append to .task
   taskDiv.appendChild(actionsDiv);
@@ -353,16 +353,21 @@ const addClickListenerToDeleteLi = (taskMenuUL, textBoxInput) => {
 };
 
 
-const addClickListenerToEditLi = (taskMenuUL, textBoxInput) => {
+const addClickListenerToEditLi = (taskMenuUL, textBoxInput, taskDiv) => {
   const editLiElement = taskMenuUL.firstElementChild;
   editLiElement.addEventListener("click", (event) => {
     textBoxInput.removeAttribute("readonly");
+    textBoxInput.focus();
+    taskDiv.classList.add('focusEdit');
+
     taskMenuUL.classList.remove("show");
   });
 
   textBoxInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       textBoxInput.setAttribute("readonly", "readonly");
+      taskDiv.classList.remove('focusEdit');
+
     }
 
     if (textBoxInput.readOnly) {
