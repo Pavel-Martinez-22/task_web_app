@@ -119,7 +119,6 @@ const buildListItem = (task) => {
   checkBox.id = "checkBox-" + task.getId();
   checkBox.tabIndex = 0;
 
-  //addClickListenerToCheckbox(checkBox); //TODO: Function to add event listener to checkbox
 
   //append to .actions
   actionsDiv.appendChild(barsIcon);
@@ -144,6 +143,9 @@ const buildListItem = (task) => {
   textBoxInput.value = task.getTaskContent();
   textBoxInput.readOnly = true;
   textBoxInput.tabIndex = 0;
+
+  // Add event listener to checkbox and textBoxInput 
+  addClickListenerToCheckbox(checkBox, textBoxInput);
 
   //Append to .contents
   contentDiv.appendChild(textBoxLabel);
@@ -262,6 +264,24 @@ const createNewTask = (taskId, taskText) => {
 
 
 /* ---------- Event Listeners ---------- */
+
+
+const addClickListenerToCheckbox = (checkBox, textBoxInput) => {
+  checkBox.addEventListener("click", (event) => {
+    if (event.target.checked) {
+      textBoxInput.classList.add("checked");
+      //count ids
+      //count all pending
+    } else {
+      textBoxInput.classList.remove("checked");
+      //recount all pending
+    }
+
+
+  });
+};
+
+
 
 const addClickListenerToTaskIcon = (taskMenuIcon) => {
   taskMenuIcon.addEventListener("click", (event) => {

@@ -213,7 +213,7 @@ form {
   align-items: center;
   border-radius: 10px;
   margin-bottom: 0.77rem;
-  padding: 0.25rem 0.5rem 0.25rem 0.15rem;
+  padding: 0.4rem 0.5rem 0.4rem 0.5rem;
   background-color: #b9b19d;
   border: 2px solid #29313d;
 }
@@ -226,16 +226,53 @@ form {
 }
 /*---------- actions ----------*/
 .actions {
+  margin-right: 0.5rem;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.actions input[type="checkbox"] {
-  text-align: center;
-  width: 2rem;
-  height: 1rem;
+.actions .fa-bars {
+  margin-right: 0.5rem;
 }
+
+.actions .fa-bars:hover {
+  transform: scale(1.3);
+}
+
+.actions input[type="checkbox"] {
+  appearance: none; /* Removes default styling */
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  border-radius: 50%; /* Makes it perfectly circular */
+  border: 2px solid #333;
+  /* background-color: #b49275; */
+  background-color: #fff;
+  position: relative;
+}
+
+.actions input[type="checkbox"]:focus,
+.actions input[type="checkbox"]:hover {
+  box-shadow: -4px 1px 8px #d9cfb6;
+}
+
+.actions input[type="checkbox"]:checked {
+  border: 2px solid #333;
+  background-color: #29313d;
+}
+
+/* .actions input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  left: 0.7rem;
+  width: 0.5rem;
+  height: 1rem;
+  border: solid #333;
+  border-width: 0 0.2rem 0.2rem 0;
+  transform: rotate(45deg);
+} */
 
 /*---------- content ----------*/
 
@@ -243,7 +280,7 @@ form {
   flex: 1 1 0%;
 }
 
-.content input {
+.content input[type="text"] {
   width: 100%;
   padding: 0.5rem 0;
   margin: 0;
@@ -252,15 +289,17 @@ form {
   outline: none;
   background: none;
 }
+
+.content input[type="text"].checked {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
 /*---------- Settings Menu ----------*/
 
 .settings {
   cursor: pointer;
   position: relative;
-}
-
-.fa-bars:hover {
-  transform: scale(1.3);
 }
 
 .fa-ellipsis:hover {
