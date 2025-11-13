@@ -212,12 +212,18 @@ form {
   display: flex;
   align-items: center;
   border-radius: 10px;
-  margin-bottom: 1rem;
-  padding: 0.15rem 0.5rem 0.15rem 0.15rem;
+  margin-bottom: 0.77rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.15rem;
   background-color: #b9b19d;
   border: 2px solid #29313d;
 }
 
+.task.over {
+  background-color: #29313d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* subtle shadow */
+  transform: scale(1.08); /* optional: slight zoom effect */
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
 /*---------- actions ----------*/
 .actions {
   display: flex;

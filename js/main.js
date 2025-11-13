@@ -33,7 +33,6 @@ const initApp = () => {
       alert("There are no tasks to clear.");
     }
   });
-  console.log(clearTasks);
 
   // Procedural functions
   loadTaskListObject();
@@ -85,9 +84,19 @@ const renderTaskList = () => {
 const buildListItem = (task) => {
   /* ---------- Building DOM  ---------- */
 
+
+  //.draggableContainer
+  const draggableContainerDiv = document.createElement("div");
+  draggableContainerDiv.className = "draggableContainer";
+  draggableContainerDiv.setAttribute('data-index', task.getId());
+
   //.task
-  const taskDiv = document.createElement("div"); //Create <div></div> element
+  const taskDiv = document.createElement("div");
   taskDiv.className = "task";
+  taskDiv.setAttribute("draggable", "true");
+
+  //Add event listener to draggable
+  addClickListenerToDraggable(taskDiv, draggableContainerDiv);
 
   //.actions
   const actionsDiv = document.createElement("div");
@@ -194,9 +203,12 @@ const buildListItem = (task) => {
   taskDiv.appendChild(contentDiv);
   taskDiv.appendChild(settingsDiv);
 
+  //Append to .dataIndex
+  draggableContainerDiv.appendChild(taskDiv);
+
   //Append to Task List
   const taskListContainer = document.getElementById("taskList");
-  taskListContainer.appendChild(taskDiv);
+  taskListContainer.appendChild(draggableContainerDiv);
 
 };
 
@@ -354,8 +366,56 @@ const addClickListenerToEditLi = (taskMenuUL, textBoxInput) => {
 
 /* ---------- Add Draggable functionality ---------- */
 
-//TODO: Create functions for draggable functionality 
+let dragStartId;
+let dragStartIndex;
 
+const addClickListenerToDraggable = (taskDiv, draggableContainerDiv) => {
+  taskDiv.addEventListener('dragstart', dragStart);
+  draggableContainerDiv.addEventListener('dragover', dragOver);
+  draggableContainerDiv.addEventListener('drop', dragDrop);
+  draggableContainerDiv.addEventListener('dragenter', dragEnter);
+  draggableContainerDiv.addEventListener('dragleave', dragLeave);
+};
+
+
+const dragStart = (event) => {
+  dragStartId = +event.target.closest('.draggableContainer').getAttribute('data-index');
+  dragStartIndex = findTaskIndex(dragStartId);
+};
+
+const dragEnter = (event) => {
+  event.currentTarget.firstElementChild.classList.add('over');
+};
+
+const dragLeave = (event) => {
+  event.currentTarget.firstElementChild.classList.remove('over');
+};
+
+const dragOver = (event) => {
+  event.preventDefault();
+};
+
+const dragDrop = (event) => {
+  let dragEndId = +event.currentTarget.getAttribute('data-index');
+  let dragEndIndex = findTaskIndex(dragEndId);
+  swapIndex(dragStartIndex, dragEndIndex);
+  event.currentTarget.firstElementChild.classList.remove('over');
+};
+
+const swapIndex = (fromIndex, toIndex) => {
+  const list = taskList.getTaskList();
+  const temp = list[fromIndex];
+  list[fromIndex] = list[toIndex];
+  list[toIndex] = temp;
+  updatePersistentData(list);
+  refreshThePage();
+};
+
+const findTaskIndex = (taskId) => {
+  const list = taskList.getTaskList();
+  const index = list.findIndex(task => task.getId() === taskId);
+  return index;
+}
 
 /* ---------- Progress Bar functionality  ---------- */
 
