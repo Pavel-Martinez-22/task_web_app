@@ -2,6 +2,7 @@ export default class TaskItem {
   constructor() {
     this._id = null;
     this._taskContent = null;
+    this._status = "pending";
   }
 
   getId() {
@@ -18,5 +19,13 @@ export default class TaskItem {
 
   setTaskContent(taskContent) {
     this._taskContent = taskContent;
+  }
+
+  getStatus() {
+    return this._status;
+  }
+
+  setStatus(status) {
+    this._status = status;
   }
 }

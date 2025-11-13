@@ -267,19 +267,49 @@ const createNewTask = (taskId, taskText) => {
 
 
 const addClickListenerToCheckbox = (checkBox, textBoxInput) => {
+
+  const checkedId = textBoxInput.id;
+  const list = taskList.getTaskList();
+  const taskObj = list.find(task => task.getId() == checkedId);
+
   checkBox.addEventListener("click", (event) => {
     if (event.target.checked) {
       textBoxInput.classList.add("checked");
+      taskObj.setStatus("completed");
+      updatePersistentData(taskList.getTaskList());
+      countCompletedTask();
+
+
       //count ids
+
+      //set status
       //count all pending
     } else {
       textBoxInput.classList.remove("checked");
+      taskObj.setStatus("pending");
+      updatePersistentData(taskList.getTaskList());
+
+      const percentCompleted = countCompletedTask();
+
+
+
       //recount all pending
     }
-
-
   });
 };
+
+const countCompletedTask = () => {
+  const list = taskList.getTaskList();
+  const totalTasks = list.length;
+  const completedTasks = list.filter(task => task.getStatus() === "completed").length;
+  const progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+
+  const progressBar = document.getElementById("progress");
+  progressBar.style.width = `${progress}%`;
+
+  document.getElementById("numbers").innerText = `${completedTasks} / ${totalTasks}`;
+
+}
 
 
 
