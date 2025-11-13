@@ -355,62 +355,17 @@ const addClickListenerToDeleteLi = (taskMenuUL, textBoxInput) => {
 
 const addClickListenerToEditLi = (taskMenuUL, textBoxInput) => {
   const editLiElement = taskMenuUL.firstElementChild;
-
-
   editLiElement.addEventListener("click", (event) => {
+    textBoxInput.removeAttribute("readonly");
+    taskMenuUL.classList.remove("show");
+  });
 
-    // Toggle read only
-    textBoxInput.readOnly = !textBoxInput.readOnly;
-
-    if (!textBoxInput.readOnly) {
-      textBoxInput.focus();
-      taskMenuUL.classList.toggle("show");
+  textBoxInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      textBoxInput.setAttribute("readonly", "readonly");
     }
 
-    const updatedTask = textBoxInput.value;
-    const taskId = textBoxInput.id;
-
-    if (!updatedTask.length) {
-      alert("Please insert new task.")
-      return;
-    }
-
-    //Get the TaskItem object with the correct id and setTaskContent() to inputext
-    const list = taskList.getTaskList();
-    const taskObj = list.find(task => task.getId() == taskId);
-
-    taskObj.setTaskContent(updatedTask);
-
-    updatePersistentData(taskList.getTaskList());
-
-    // //TODO: Fix enter event listener
-    // document.addEventListener("keydown", handleEnter);
-
-    // function handleEnter(event) {
-    //   if (event.key === "Enter") {
-    //     taskMenuUL.classList.remove("show");
-    //     document.removeEventListener("keydown", handleEnter);
-    //   }
-    // }
-
-    // if (taskObj) {
-    //   console.log("Task updated:", taskObj);
-    // }
-
-    // //Attempt 2:
-    // editLiElement.addEventListener("keydown", (event) => {
-
-    //   if (event.key === "Enter") {
-    //     taskMenuUL.classList.remove("show");
-    //     textBoxInput.readOnly = textBoxInput.readOnly;
-    //   };
-
-    // });
-
-
-
-
-  })
+  });
 };
 
 /* ---------- Add Draggable functionality ---------- */
