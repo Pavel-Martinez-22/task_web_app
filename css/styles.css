@@ -13,7 +13,7 @@
     COLOR PALETTE
     #242038 - Dark-purple
     #9067C6 - Amethyst
-    #8D86C9 - Tropical Indigo
+    #8D86C5 - Tropical Indigo
     #F7ECE1 - Linen
     #CAC4CE - French Gray
 */
@@ -21,10 +21,10 @@
 /*---------- CSS Variables  ----------*/
 :root {
   --primaryDark: #242038;
-  --secondaryDark: #8d86c9;
-  --TertiaryDark: #2d2b24;
-  --primaryLight: #cac4ce;
-  --secondaryLight: #f7ece1;
+  --secondaryDark: #dddbee;
+  --TertiaryDark: #9067c6;
+  --primaryLight: #f7ece1;
+  --secondaryLight: #cac4ce;
 }
 
 /*---------- Global styles ----------*/
@@ -189,7 +189,7 @@ form {
   all: unset;
   cursor: pointer;
   font-size: 17px;
-  color: var(--primaryLight);
+  color: var(--TertiaryDark);
 }
 
 .filters .filterButton:first-child {
