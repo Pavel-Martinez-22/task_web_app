@@ -312,7 +312,7 @@ const addClickListenerToCheckbox = (checkBox, textBoxInput) => {
       textBoxInput.classList.add("checked");
       taskObj.setStatus("completed");
       updatePersistentData(taskList.getTaskList());
-      countCompletedTask();
+
       setTimeout(() => {
         refreshThePage();
       }, 1000);
@@ -320,7 +320,7 @@ const addClickListenerToCheckbox = (checkBox, textBoxInput) => {
       textBoxInput.classList.remove("checked");
       taskObj.setStatus("pending");
       updatePersistentData(taskList.getTaskList());
-      countCompletedTask();
+
       setTimeout(() => {
         refreshThePage();
       }, 1000);
