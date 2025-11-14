@@ -242,6 +242,7 @@ form {
 }
 
 .task.over {
+  color: var(--primaryLight);
   background-color: var(--primaryDark);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transform: scale(1.08);
@@ -311,6 +312,7 @@ form {
   width: 100%;
   margin: 0;
   font-size: 1rem;
+  color: var(--primaryDark);
 }
 .content input[type="text"]:not(:read-only) {
   color: red;
@@ -318,6 +320,9 @@ form {
 .content input[type="text"].checked {
   text-decoration: line-through;
   opacity: 0.6;
+}
+.content input[type="text"].over {
+  color: var(--primaryLight);
 }
 
 /*---------- Settings Menu ----------*/

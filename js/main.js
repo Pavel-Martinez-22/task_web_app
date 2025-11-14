@@ -433,14 +433,18 @@ const dragStart = (event) => {
 
 const dragEnter = (event) => {
   event.currentTarget.firstElementChild.classList.add('over');
+  event.currentTarget.querySelector('input[type="text"]').classList.add('over');
 };
 
 const dragLeave = (event) => {
   event.currentTarget.firstElementChild.classList.remove('over');
+  event.currentTarget.querySelector('input[type="text"]').classList.remove('over');
 };
 
 const dragOver = (event) => {
   event.preventDefault();
+  event.currentTarget.firstElementChild.classList.add('over');
+  event.currentTarget.querySelector('input[type="text"]').classList.add('over');
 };
 
 const dragDrop = (event) => {
@@ -448,6 +452,7 @@ const dragDrop = (event) => {
   let dragEndIndex = findTaskIndex(dragEndId);
   swapIndex(dragStartIndex, dragEndIndex);
   event.currentTarget.firstElementChild.classList.remove('over');
+  event.currentTarget.querySelector('input[type="text"]').classList.remove('over');
 };
 
 const swapIndex = (fromIndex, toIndex) => {
