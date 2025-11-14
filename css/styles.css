@@ -25,6 +25,7 @@
   --TertiaryDark: #9067c6;
   --primaryLight: #f7ece1;
   --secondaryLight: #cac4ce;
+  --hover: #8d86c5;
 }
 
 /*---------- Global styles ----------*/
@@ -164,7 +165,7 @@ form {
 
 #itemEntryForm button:hover,
 #itemEntryForm button:focus {
-  box-shadow: 4px 2px 5px var(--primaryLight);
+  box-shadow: 4px 2px 5px var(--hover);
 }
 
 #itemEntryForm button:active {
@@ -213,7 +214,7 @@ form {
 
 .controlsContainer #clearTasksButton:hover,
 .controlsContainer #clearTasksButton:focus {
-  box-shadow: 4px 2px 5px var(--primaryLight);
+  box-shadow: 4px 2px 5px var(--hover);
 }
 
 .controlsContainer #clearTasksButton:active {
