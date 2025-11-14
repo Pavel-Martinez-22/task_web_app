@@ -1,4 +1,4 @@
-/*---------- COLOR PALETTE  ----------*/
+/*---------- COLOR PALETTE 1 ----------*/
 /*
     COLOR PALETTE
     #2D2B24 - n/a
@@ -7,6 +7,25 @@
     #B9B19D - Khaki Web
     #B49275 - Camel
 */
+
+/*---------- COLOR PALETTE 2 ----------*/
+/*
+    COLOR PALETTE
+    #242038 - Dark-purple
+    #9067C6 - Amethyst
+    #8D86C9 - Tropical Indigo
+    #F7ECE1 - Linen
+    #CAC4CE - French Gray
+*/
+
+/*---------- CSS Variables  ----------*/
+:root {
+  --primaryDark: #242038;
+  --secondaryDark: #8d86c9;
+  --TertiaryDark: #2d2b24;
+  --primaryLight: #cac4ce;
+  --secondaryLight: #f7ece1;
+}
 
 /*---------- Global styles ----------*/
 
@@ -20,7 +39,7 @@ html,
 body {
   font-size: 16px;
   font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
-  color: #29313d;
+  color: var(--primaryDark);
   width: 100%;
   min-height: 100%;
 }
@@ -34,7 +53,7 @@ body {
 
 body {
   padding: 15px;
-  background-color: #29313d;
+  background-color: var(--primaryDark);
 }
 
 .wrapContainer {
@@ -42,7 +61,7 @@ body {
   max-width: 700px;
   margin: auto;
   padding: 0.75rem;
-  background-color: #b49275;
+  background-color: var(--secondaryDark);
   border-radius: 10px;
   min-height: 95vh;
 }
@@ -60,7 +79,7 @@ body {
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
-  border: 2px solid #29313d;
+  border: 2px solid var(--primaryDark);
 }
 
 .details {
@@ -73,8 +92,8 @@ body {
 #numbers {
   width: 4.5rem;
   height: 4.5rem;
-  background-color: #29313d;
-  color: #d9cfb6;
+  background-color: var(--primaryDark);
+  color: var(--primaryLight);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,7 +104,7 @@ body {
 #progressBar {
   width: 100%;
   height: 10px;
-  background-color: #29313d;
+  background-color: var(--primaryDark);
   border-radius: 5px;
   margin-top: 1rem;
 }
@@ -93,7 +112,7 @@ body {
 #progress {
   width: 80%;
   height: 10px;
-  background-color: #d9cfb6;
+  background-color: var(--primaryLight);
   border-radius: 10px;
   transition: all 0.3s ease;
 }
@@ -118,16 +137,16 @@ form {
   width: 0;
   flex: 1;
   padding: 1rem;
-  background: #d9cfb6;
-  border: 2px solid #29313d;
+  background: var(--primaryLight);
+  border: 2px solid var(--primaryDark);
   border-radius: 10px;
   font-size: 1.2rem;
-  color: #29313d;
+  color: var(--primaryDark);
 }
 
 #itemEntryForm input:focus,
 #itemEntryForm input:hover {
-  box-shadow: 4px 2px 5px #29313d;
+  box-shadow: 4px 2px 5px var(--primaryDark);
 }
 
 #itemEntryForm button {
@@ -137,15 +156,15 @@ form {
   height: 48px;
   border-radius: 50%;
   cursor: pointer;
-  background-color: #29313d;
-  color: #d9cfb6;
+  background-color: var(--primaryDark);
+  color: var(--primaryLight);
   font-size: 2rem;
   font-weight: bold;
 }
 
 #itemEntryForm button:hover,
 #itemEntryForm button:focus {
-  box-shadow: 4px 2px 5px #d9cfb6;
+  box-shadow: 4px 2px 5px var(--primaryLight);
 }
 
 #itemEntryForm button:active {
@@ -162,7 +181,7 @@ form {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  border-bottom: 2px solid #29313d;
+  border-bottom: 2px solid var(--primaryDark);
 }
 
 .filters .filterButton {
@@ -170,7 +189,7 @@ form {
   all: unset;
   cursor: pointer;
   font-size: 17px;
-  color: #d9cfb6;
+  color: var(--primaryLight);
 }
 
 .filters .filterButton:first-child {
@@ -178,23 +197,23 @@ form {
 }
 
 .filters .filterButton.active {
-  color: #29313d;
+  color: var(--primaryDark);
   font-weight: bold;
 }
 
 .controlsContainer #clearTasksButton {
   outline: none;
   border: none;
-  color: #d9cfb6;
+  color: var(--primaryLight);
   cursor: pointer;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
-  background: #29313d;
+  background: var(--primaryDark);
 }
 
 .controlsContainer #clearTasksButton:hover,
 .controlsContainer #clearTasksButton:focus {
-  box-shadow: 4px 2px 5px #d9cfb6;
+  box-shadow: 4px 2px 5px var(--primaryLight);
 }
 
 .controlsContainer #clearTasksButton:active {
@@ -214,15 +233,15 @@ form {
   border-radius: 10px;
   margin-bottom: 0.77rem;
   padding: 0.4rem 0.5rem 0.4rem 0.5rem;
-  background-color: #b9b19d;
-  border: 2px solid #29313d;
+  background-color: var(--secondaryLight);
+  border: 2px solid var(--primaryDark);
 }
 .focusEdit {
-  box-shadow: -4px 1px 8px #29313d;
+  box-shadow: -4px 1px 8px var(--primaryDark);
 }
 
 .task.over {
-  background-color: #29313d;
+  background-color: var(--primaryDark);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transform: scale(1.08);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -250,19 +269,19 @@ form {
   cursor: pointer;
   border-radius: 50%; /* Makes it perfectly circular */
   border: 2px solid #333;
-  /* background-color: #b49275; */
+  /* background-color:  var(--secondaryDark); */
   background-color: #fff;
   position: relative;
 }
 
 .actions input[type="checkbox"]:focus,
 .actions input[type="checkbox"]:hover {
-  box-shadow: -4px 1px 8px #d9cfb6;
+  box-shadow: -4px 1px 8px var(--primaryLight);
 }
 
 .actions input[type="checkbox"]:checked {
   border: 2px solid #333;
-  background-color: #29313d;
+  background-color: var(--primaryDark);
 }
 
 /* .actions input[type="checkbox"]:checked::after {
@@ -318,10 +337,10 @@ form {
   bottom: -3.2rem;
   transform: scale(0);
   border-radius: 0.5rem;
-  background-color: #b9b19d;
+  background-color: var(--secondaryLight);
   transform-origin: top right;
   transition: transform 0.2s ease;
-  border: 2px solid #29313d;
+  border: 2px solid var(--primaryDark);
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
 }
 
@@ -351,7 +370,7 @@ li {
 }
 
 .task-menu li:hover {
-  background-color: #d9cfb6;
+  background-color: var(--primaryLight);
   border-radius: 0.5rem;
 }
 .task-menu li i {
