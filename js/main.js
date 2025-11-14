@@ -1,7 +1,14 @@
 import TaskList from "./taskList.js";
 import TaskItem from "./taskItem.js";
+import { getRandomEncouragement, encouragementList } from './encouragement.js';
+
+
+
 
 const taskList = new TaskList();
+let currentFilter = "pending";
+
+
 
 // Launch app
 document.addEventListener("readystatechange", (event) => {
@@ -36,7 +43,7 @@ const initApp = () => {
       clearTasks.blur();
     }
   });
-
+  filterButtonsEventListener();
   // Procedural functions
   loadTaskListObject();
   refreshThePage();
@@ -45,7 +52,7 @@ const initApp = () => {
 const loadTaskListObject = () => {
   const storedList = localStorage.getItem("taskList");
   if (typeof storedList !== "string") {
-    return; //If there is no stored list return
+    return;
   }
   const parsedList = JSON.parse(storedList);
   parsedList.forEach(itemObj => {
@@ -78,16 +85,22 @@ const deleteContents = (parentElement) => {
 
 const renderTaskList = () => {
   const list = taskList.getTaskList();
-  list.forEach((task) => {
-    buildListItem(task);
-  });
-  console.log("Current task list:", list); //TODO: Remove console log using log to check output list.
+  const pendingTasks = list.filter(task => task.getStatus() === "pending");
+  const completedTasks = list.filter(task => task.getStatus() === "completed");
 
+  if (currentFilter === "pending") {
+    pendingTasks.forEach((task) => {
+      buildListItem(task);
+    });
+  } else {
+    completedTasks.forEach((task) => {
+      buildListItem(task);
+    });
+  }
 };
 
 const buildListItem = (task) => {
   /* ---------- Building DOM  ---------- */
-
 
   //.draggableContainer
   const draggableContainerDiv = document.createElement("div");
@@ -116,7 +129,6 @@ const buildListItem = (task) => {
   checkBoxLabel.htmlFor = "checkBox-" + task.getId();
   checkBoxLabel.className = "visually-hidden";
   checkBoxLabel.textContent = "Check Box";
-
 
   //Checkbox
   const checkBox = document.createElement("input");
@@ -153,11 +165,6 @@ const buildListItem = (task) => {
   } else {
     textBoxInput.className = "text";
   }
-
-
-
-
-
 
   // Add event listener to checkbox and textBoxInput 
   addClickListenerToCheckbox(checkBox, textBoxInput);
@@ -277,9 +284,20 @@ const createNewTask = (taskId, taskText, taskStatus) => {
   return task;
 };
 
-
-
 /* ---------- Event Listeners ---------- */
+
+const filterButtonsEventListener = () => {
+  const filterButtons = document.querySelectorAll(".filterButton");
+  filterButtons.forEach(button => {
+    button.addEventListener("click", (event) => {
+      filterButtons.forEach(button => button.classList.remove("active"));
+      button.classList.add("active");
+      currentFilter = button.id;
+      refreshThePage();
+    });
+  });
+};
+
 
 
 const addClickListenerToCheckbox = (checkBox, textBoxInput) => {
@@ -294,24 +312,21 @@ const addClickListenerToCheckbox = (checkBox, textBoxInput) => {
       taskObj.setStatus("completed");
       updatePersistentData(taskList.getTaskList());
       countCompletedTask();
+      setTimeout(() => {
+        refreshThePage();
+      }, 1000);
     } else {
       textBoxInput.classList.remove("checked");
       taskObj.setStatus("pending");
       updatePersistentData(taskList.getTaskList());
       countCompletedTask();
+      setTimeout(() => {
+        refreshThePage();
+      }, 1000);
     }
   });
 };
 
-const countCompletedTask = () => {
-  const list = taskList.getTaskList();
-  const totalTasks = list.length;
-  const completedTasks = list.filter(task => task.getStatus() === "completed").length;
-  const progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
-  const progressBar = document.getElementById("progress");
-  progressBar.style.width = `${progress}%`;
-  document.getElementById("numbers").innerText = `${completedTasks} / ${totalTasks}`;
-}
 
 
 
@@ -449,6 +464,27 @@ const findTaskIndex = (taskId) => {
   return index;
 }
 
+
 /* ---------- Progress Bar functionality  ---------- */
 
-//TODO: Create functions for progress Bar functionality
+const countCompletedTask = () => {
+  const list = taskList.getTaskList();
+  const totalTasks = list.length;
+  const completedTasks = list.filter(task => task.getStatus() === "completed").length;
+  const progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+
+
+  if (progress > 0 && progress < 100) {
+    document.getElementById("encouragement").innerText = getRandomEncouragement(encouragementList);
+
+  }
+
+  if (progress === 100) {
+    document.getElementById("encouragement").innerText = "Great job you did it!";
+
+  }
+
+  const progressBar = document.getElementById("progress");
+  progressBar.style.width = `${progress}%`;
+  document.getElementById("numbers").innerText = `${completedTasks} / ${totalTasks}`;
+}
