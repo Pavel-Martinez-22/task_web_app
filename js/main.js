@@ -255,6 +255,7 @@ const processSubmission = () => {
     alert("Please insert new task.")
     return;
   }
+  activeTaskList();
   const nextTaskId = calcNextTaskId();
   const taskItem = createNewTask(nextTaskId, userEntryText, "pending");
   taskList.addTaskToList(taskItem);
@@ -474,17 +475,26 @@ const countCompletedTask = () => {
   const progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 
 
-  if (progress > 0 && progress < 100) {
-    document.getElementById("encouragement").innerText = getRandomEncouragement(encouragementList);
-
+  if (progress === 0) {
+    document.getElementById("encouragement").innerText = "Lets get started!";
   }
-
-  if (progress === 100) {
+  else if (progress > 0 && progress < 100) {
+    document.getElementById("encouragement").innerText = getRandomEncouragement(encouragementList);
+  } else {
     document.getElementById("encouragement").innerText = "Great job you did it!";
-
   }
 
   const progressBar = document.getElementById("progress");
   progressBar.style.width = `${progress}%`;
   document.getElementById("numbers").innerText = `${completedTasks} / ${totalTasks}`;
+
+}
+
+/* ---------- Helper function  ---------- */
+
+const activeTaskList = () => {
+  currentFilter = "pending";
+  const filterButtons = document.querySelectorAll(".filterButton");
+  filterButtons.forEach(button => button.classList.remove("active"));
+  document.getElementById("pending").classList.add("active");
 }
