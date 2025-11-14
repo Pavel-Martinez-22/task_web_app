@@ -286,18 +286,6 @@ form {
   background-color: var(--primaryDark);
 }
 
-/* .actions input[type="checkbox"]:checked::after {
-  content: "";
-  position: absolute;
-  top: 0.4rem;
-  left: 0.7rem;
-  width: 0.5rem;
-  height: 1rem;
-  border: solid #333;
-  border-width: 0 0.2rem 0.2rem 0;
-  transform: rotate(45deg);
-} */
-
 /*---------- content ----------*/
 
 #taskList .task .content {
