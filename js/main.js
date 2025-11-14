@@ -49,7 +49,7 @@ const loadTaskListObject = () => {
   }
   const parsedList = JSON.parse(storedList);
   parsedList.forEach(itemObj => {
-    const newTaskItem = createNewTask(itemObj._id, itemObj._taskContent);
+    const newTaskItem = createNewTask(itemObj._id, itemObj._taskContent, itemObj._status);
     taskList.addTaskToList(newTaskItem);
   });
 };
@@ -117,12 +117,13 @@ const buildListItem = (task) => {
   checkBoxLabel.className = "visually-hidden";
   checkBoxLabel.textContent = "Check Box";
 
+
   //Checkbox
   const checkBox = document.createElement("input");
   checkBox.type = "checkbox";
   checkBox.id = "checkBox-" + task.getId();
   checkBox.tabIndex = 0;
-
+  checkBox.checked = task.getStatus() === "completed";
 
   //append to .actions
   actionsDiv.appendChild(barsIcon);
@@ -143,10 +144,20 @@ const buildListItem = (task) => {
   const textBoxInput = document.createElement("input");
   textBoxInput.type = "text";
   textBoxInput.id = task.getId();
-  textBoxInput.className = "text";
+
   textBoxInput.value = task.getTaskContent();
   textBoxInput.readOnly = true;
   textBoxInput.tabIndex = 0;
+  if (task.getStatus() === "completed") {
+    textBoxInput.classList.add("text", "checked");
+  } else {
+    textBoxInput.className = "text";
+  }
+
+
+
+
+
 
   // Add event listener to checkbox and textBoxInput 
   addClickListenerToCheckbox(checkBox, textBoxInput);
@@ -238,7 +249,7 @@ const processSubmission = () => {
     return;
   }
   const nextTaskId = calcNextTaskId();
-  const taskItem = createNewTask(nextTaskId, userEntryText);
+  const taskItem = createNewTask(nextTaskId, userEntryText, "pending");
   taskList.addTaskToList(taskItem);
   updatePersistentData(taskList.getTaskList());
   refreshThePage();
@@ -258,10 +269,11 @@ const calcNextTaskId = () => {
   return nextTaskId;
 };
 
-const createNewTask = (taskId, taskText) => {
+const createNewTask = (taskId, taskText, taskStatus) => {
   const task = new TaskItem();
   task.setId(taskId);
   task.setTaskContent(taskText);
+  task.setStatus(taskStatus);
   return task;
 };
 
