@@ -28,9 +28,12 @@ const initApp = () => {
         taskList.clearList();
         updatePersistentData(taskList.getTaskList());
         refreshThePage();
+      } else {
+        clearTasks.blur();
       }
     } else {
       alert("There are no tasks to clear.");
+      clearTasks.blur();
     }
   });
 
