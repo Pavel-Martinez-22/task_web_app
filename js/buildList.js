@@ -74,7 +74,6 @@ export const settingsDivAssembled = (task) => {
   taskMenuIcon.classList.add("fa-solid", "fa-ellipsis");
   taskMenuIcon.setAttribute("aria-label", "Settings Menu");
 
-
   //Create Ul
   const taskMenuUL = document.createElement("ul");
   taskMenuUL.className = "task-menu";
