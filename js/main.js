@@ -1,14 +1,12 @@
 import TaskList from "./taskList.js";
 import TaskItem from "./taskItem.js";
+import { actionsDivAssembled, contentDivAssembled, settingsDivAssembled, taskDivAssembled } from "./buildList.js"
+import { deleteContents, filterTaskList } from "./helperFunctions.js";
 import { getRandomEncouragement, encouragementList } from './encouragement.js';
-
-
 
 
 const taskList = new TaskList();
 let currentFilter = "pending";
-
-
 
 // Launch app
 document.addEventListener("readystatechange", (event) => {
@@ -18,7 +16,7 @@ document.addEventListener("readystatechange", (event) => {
 });
 
 const initApp = () => {
-  //Event listeners Add task
+  //Event listeners
   const itemEntryForm = document.getElementById("itemEntryForm");
   itemEntryForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -74,33 +72,22 @@ const clearTaskListDisplay = () => {
   deleteContents(taskListParentEl);
 };
 
-const deleteContents = (parentElement) => {
-  let child = parentElement.lastElementChild;
-  while (child) {
-    parentElement.removeChild(child);
-    child = parentElement.lastElementChild;
-  }
-
-};
 
 const renderTaskList = () => {
   const list = taskList.getTaskList();
-  const pendingTasks = list.filter(task => task.getStatus() === "pending");
-  const completedTasks = list.filter(task => task.getStatus() === "completed");
-
-  if (currentFilter === "pending") {
-    pendingTasks.forEach((task) => {
-      buildListItem(task);
-    });
-  } else {
-    completedTasks.forEach((task) => {
-      buildListItem(task);
-    });
-  }
+  const filteredList = filterTaskList(list, currentFilter);
+  filteredList.forEach((task) => {
+    buildListItem(task);
+  });
 };
 
 const buildListItem = (task) => {
   /* ---------- Building DOM  ---------- */
+
+  const { actionsDiv, checkBox } = actionsDivAssembled(task);
+  const { contentDiv, textBoxInput } = contentDivAssembled(task);
+  const { taskMenuUL, settingsDiv, taskMenuIcon } = settingsDivAssembled(task);
+
 
   //.draggableContainer
   const draggableContainerDiv = document.createElement("div");
@@ -111,116 +98,6 @@ const buildListItem = (task) => {
   const taskDiv = document.createElement("div");
   taskDiv.className = "task";
   taskDiv.setAttribute("draggable", "true");
-
-  //Add event listener to draggable
-  addClickListenerToDraggable(taskDiv, draggableContainerDiv);
-
-  //.actions
-  const actionsDiv = document.createElement("div");
-  actionsDiv.className = "actions";
-
-  //bars Icon
-  const barsIcon = document.createElement("i");
-  barsIcon.classList.add("fa-solid", "fa-bars");
-  barsIcon.setAttribute("aria-label", "Drag and drop icon");
-
-  //CheckBox Label
-  const checkBoxLabel = document.createElement("label");
-  checkBoxLabel.htmlFor = "checkBox-" + task.getId();
-  checkBoxLabel.className = "visually-hidden";
-  checkBoxLabel.textContent = "Check Box";
-
-  //Checkbox
-  const checkBox = document.createElement("input");
-  checkBox.type = "checkbox";
-  checkBox.id = "checkBox-" + task.getId();
-  checkBox.tabIndex = 0;
-  checkBox.checked = task.getStatus() === "completed";
-
-  //append to .actions
-  actionsDiv.appendChild(barsIcon);
-  actionsDiv.appendChild(checkBoxLabel);
-  actionsDiv.appendChild(checkBox);
-
-  //.content
-  const contentDiv = document.createElement("div");
-  contentDiv.className = "content";
-
-  //textBox Label
-  const textBoxLabel = document.createElement("label");
-  textBoxLabel.htmlFor = task.getId();
-  textBoxLabel.className = "visually-hidden";
-  textBoxLabel.textContent = "Text Box Description";
-
-  //textBox Input
-  const textBoxInput = document.createElement("input");
-  textBoxInput.type = "text";
-  textBoxInput.id = task.getId();
-
-  textBoxInput.value = task.getTaskContent();
-  textBoxInput.readOnly = true;
-  textBoxInput.tabIndex = 0;
-  if (task.getStatus() === "completed") {
-    textBoxInput.classList.add("text", "checked");
-  } else {
-    textBoxInput.className = "text";
-  }
-
-  // Add event listener to checkbox and textBoxInput 
-  addClickListenerToCheckbox(checkBox, textBoxInput);
-
-  //Append to .contents
-  contentDiv.appendChild(textBoxLabel);
-  contentDiv.appendChild(textBoxInput);
-
-  //.settings
-  const settingsDiv = document.createElement("div");
-  settingsDiv.className = "settings";
-
-  //Task Menu Icon
-  const taskMenuIcon = document.createElement("i");
-  taskMenuIcon.classList.add("fa-solid", "fa-ellipsis");
-  taskMenuIcon.setAttribute("aria-label", "Settings Menu");
-  addClickListenerToTaskIcon(taskMenuIcon);
-
-  //Create Ul
-  const taskMenuUL = document.createElement("ul");
-  taskMenuUL.className = "task-menu";
-
-  // Create Edit List Element item
-  const editLiElement = document.createElement("li");
-
-  //Edit Icon
-  const editIcon = document.createElement("i");
-  editIcon.classList.add("fa-solid", "fa-pencil");
-  editIcon.setAttribute("aria-label", "Edit Icon");
-
-  //Append to List Element
-  editLiElement.appendChild(editIcon);
-  editLiElement.appendChild(document.createTextNode("Edit"));
-
-  // Create Edit List Element item
-  const deleteLiElement = document.createElement("li");
-
-  //Delete Icon
-  const deleteIcon = document.createElement("i");
-  deleteIcon.classList.add("fa-solid", "fa-trash-can");
-  deleteIcon.setAttribute("aria-label", "Delete Icon");
-
-
-  //Append to List Element
-  deleteLiElement.appendChild(deleteIcon);
-  deleteLiElement.appendChild(document.createTextNode("Delete"));
-
-  // Append to ul and .settings
-  taskMenuUL.appendChild(editLiElement);
-  taskMenuUL.appendChild(deleteLiElement);
-  settingsDiv.appendChild(taskMenuIcon);
-  settingsDiv.appendChild(taskMenuUL);
-
-  //Add Event Listeners
-  addClickListenerToDeleteLi(taskMenuUL, textBoxInput);
-  addClickListenerToEditLi(taskMenuUL, textBoxInput, taskDiv);
 
   //Append to .task
   taskDiv.appendChild(actionsDiv);
@@ -233,6 +110,13 @@ const buildListItem = (task) => {
   //Append to Task List
   const taskListContainer = document.getElementById("taskList");
   taskListContainer.appendChild(draggableContainerDiv);
+
+  //Event Listeners
+  addClickListenerToDraggable(taskDiv, draggableContainerDiv);
+  addClickListenerToCheckbox(checkBox, textBoxInput);
+  addClickListenerToTaskIcon(taskMenuIcon);
+  addClickListenerToDeleteLi(taskMenuUL, textBoxInput);
+  addClickListenerToEditLi(taskMenuUL, textBoxInput, taskDiv);
 
 };
 
@@ -315,7 +199,7 @@ const addClickListenerToCheckbox = (checkBox, textBoxInput) => {
 
       setTimeout(() => {
         refreshThePage();
-      }, 1000);
+      }, 500);
     } else {
       textBoxInput.classList.remove("checked");
       taskObj.setStatus("pending");
@@ -323,7 +207,7 @@ const addClickListenerToCheckbox = (checkBox, textBoxInput) => {
 
       setTimeout(() => {
         refreshThePage();
-      }, 1000);
+      }, 500);
     }
   });
 };
