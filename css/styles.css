@@ -77,6 +77,7 @@ body {
   width: 99%;
   margin: 0 auto 1rem;
   padding: 1rem;
+  position: relative;
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
@@ -91,6 +92,9 @@ body {
 }
 
 #numbers {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
   width: 4.5rem;
   height: 4.5rem;
   background-color: var(--primaryDark);
