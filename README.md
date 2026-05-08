@@ -17,9 +17,4 @@ Through this project, I focused on building a clean, accessible, and interactive
 
 ## Live Website
 
-<a
-href="https://task-web-app-7mg4.onrender.com/"
-target="\_blank"
-rel="noopener noreferrer"
-
-> View Project</a>
+<a href="https://task-web-app-7mg4.onrender.com/" target="_blank" rel="noopener noreferrer"> View Project</a>
